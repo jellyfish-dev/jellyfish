@@ -1,15 +1,6 @@
 # Deployment to Fly.io
 
-First start off with following the [Fly.io deployment speedrun](https://fly.io/docs/speedrun/).
+You can create a new Fly.io application by running `fly launch`.
+Make sure to have [flyctl](https://fly.io/docs/hands-on/install-flyctl/) installed first.
 
-1. In order to create a new application run
-```console
-fly launch
-```
-
-and copy the configuration from existin `fly.toml` file.
-
-2. Choose an appropriate app name and deployment region.
-If your project doesn't require it, don't create any database.
-
-3. 
+First start off with following the [Fly Launch docs](https://fly.io/docs/reference/fly-launch/).
