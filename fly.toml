@@ -1,12 +1,15 @@
-# fly.toml file generated for delicate-wind-6370 on 2023-02-22T09:56:22+01:00
+# fly.toml file generated for jellyfish-media-server on 2023-02-22T16:16:38+01:00
 
-app = "delicate-wind-6370"
+app = "jellyfish-media-server"
 kill_signal = "SIGTERM"
 kill_timeout = 5
 processes = []
 
+[build]
+  dockerfile = "Dockerfile_ubuntu"
+
 [env]
-  PHX_HOST = "delicate-wind-6370.fly.dev"
+  PHX_HOST = "jellyfish-media-server.fly.dev"
   PORT = "8080"
 
 [experimental]
