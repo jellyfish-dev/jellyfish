@@ -78,7 +78,10 @@ defmodule Jellyfish.MixProject do
       {:credo, ">= 0.0.0", only: :dev, runtime: false},
 
       # Test deps
-      {:excoveralls, "~> 0.15.0", only: :test, runtime: false}
+      {:excoveralls, "~> 0.15.0", only: :test, runtime: false},
+
+      # OTEL
+      {:opentelemetry_exporter, "~> 1.0.0"}
     ]
   end
 
