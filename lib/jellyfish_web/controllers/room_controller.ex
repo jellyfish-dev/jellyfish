@@ -3,6 +3,7 @@ defmodule JellyfishWeb.RoomController do
 
   alias Jellyfish.Room
   alias Jellyfish.RoomService
+  alias JellyfishWeb.Controllers.Utils
 
   action_fallback JellyfishWeb.FallbackController
 
@@ -13,7 +14,7 @@ defmodule JellyfishWeb.RoomController do
 
     conn
     |> put_resp_content_type("application/json")
-    |> render("index.json", rooms: rooms)
+    |> json(Utils.get_json(rooms))
   end
 
   def create(conn, params) do
@@ -22,7 +23,7 @@ defmodule JellyfishWeb.RoomController do
       conn
       |> put_resp_content_type("application/json")
       |> put_status(:created)
-      |> render("show.json", room: room)
+      |> json(Utils.get_json(room))
     else
       {:error, :bad_arg} -> {:error, :bad_request, "maxPeers must be a number"}
     end
@@ -38,7 +39,7 @@ defmodule JellyfishWeb.RoomController do
 
         conn
         |> put_resp_content_type("application/json")
-        |> render("show.json", room: room)
+        |> json(Utils.get_json(room))
 
       {:error, :room_not_found} ->
         {:error, :not_found, "Room #{id} does not exist"}

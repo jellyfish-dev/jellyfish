@@ -4,6 +4,7 @@ defmodule JellyfishWeb.ComponentController do
   alias Jellyfish.Component
   alias Jellyfish.Room
   alias Jellyfish.RoomService
+  alias JellyfishWeb.Controllers.Utils
 
   action_fallback JellyfishWeb.FallbackController
 
@@ -16,7 +17,7 @@ defmodule JellyfishWeb.ComponentController do
       conn
       |> put_resp_content_type("application/json")
       |> put_status(:created)
-      |> render("show.json", component: component)
+      |> json(Utils.get_json(component))
     else
       :error -> {:error, :bad_request, "Invalid request body structure"}
       {:error, :invalid_type} -> {:error, :bad_request, "Invalid component type"}
