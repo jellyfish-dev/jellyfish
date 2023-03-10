@@ -4,6 +4,7 @@ defmodule JellyfishWeb.PeerController do
   alias Jellyfish.Peer
   alias Jellyfish.Room
   alias Jellyfish.RoomService
+  alias JellyfishWeb.JsonUtils
 
   action_fallback JellyfishWeb.FallbackController
 
@@ -15,7 +16,7 @@ defmodule JellyfishWeb.PeerController do
       conn
       |> put_resp_content_type("application/json")
       |> put_status(:created)
-      |> render("show.json", peer: peer)
+      |> json(JsonUtils.get_json(peer))
     else
       :error ->
         {:error, :bad_request, "Invalid request body structure"}
