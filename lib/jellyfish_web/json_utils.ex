@@ -1,29 +1,32 @@
 defmodule JellyfishWeb.JsonUtils do
+  @moduledoc false
+  # Functions for converting structs to appropriate API responses
   alias Jellyfish.{Component, Peer, Room}
 
-  def get_json(%{} = item) when map_size(item) == 0,  do: %{}
-  def get_json([]), do: []
-
-  def get_json(collection) when is_list(collection) do
-    Enum.map(collection, &get_json/1)
+  def get_json(item) do
+    %{data: do_get_json(item)}
   end
 
-  def get_json(%Room{} = room) do
-    IO.inspect(label: :getting_room_json)
+  defp do_get_json(%{} = item) when map_size(item) == 0, do: %{}
+  defp do_get_json([]), do: []
 
+  defp do_get_json(collection) when is_list(collection) do
+    Enum.map(collection, &do_get_json/1)
+  end
+
+  defp do_get_json(%Room{} = room) do
     %{
       id: room.id,
       config: %{"maxPeers" => room.config.max_peers},
-      components: get_json(room.components),
-      peers: get_json(room.peers)
+      components: do_get_json(room.components),
+      peers: do_get_json(room.peers)
     }
-    |> IO.inspect(label: :new_room_returned)
   end
 
-  def get_json(%Component{} = component) do
+  defp do_get_json(%Component{} = component) do
     type =
       case component.type do
-        HLS -> "hls"
+        Component.HLS -> "hls"
       end
 
     %{
@@ -32,10 +35,10 @@ defmodule JellyfishWeb.JsonUtils do
     }
   end
 
-  def get_json(%Peer{} = peer) do
+  defp do_get_json(%Peer{} = peer) do
     type =
       case peer.type do
-        WebRTC -> "webrtc"
+        Peer.WebRTC -> "webrtc"
       end
 
     %{

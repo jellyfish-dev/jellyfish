@@ -2,9 +2,9 @@ defmodule JellyfishWeb.ComponentController do
   use JellyfishWeb, :controller
 
   alias Jellyfish.Component
-  alias JellyfishWeb.JsonUtils
   alias Jellyfish.Room
   alias Jellyfish.RoomService
+  alias JellyfishWeb.JsonUtils
 
   action_fallback JellyfishWeb.FallbackController
 

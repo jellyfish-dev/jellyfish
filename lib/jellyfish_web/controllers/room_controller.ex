@@ -1,9 +1,9 @@
 defmodule JellyfishWeb.RoomController do
   use JellyfishWeb, :controller
 
-  alias JellyfishWeb.JsonUtils
   alias Jellyfish.Room
   alias Jellyfish.RoomService
+  alias JellyfishWeb.JsonUtils
 
   action_fallback JellyfishWeb.FallbackController
 
@@ -19,8 +19,7 @@ defmodule JellyfishWeb.RoomController do
 
   def create(conn, params) do
     with max_peers <- Map.get(params, "maxPeers"),
-         {:ok, room} <- RoomService.create_room(max_peers),
-         IO.inspect(room, label: :new_room) do
+         {:ok, room} <- RoomService.create_room(max_peers) do
       conn
       |> put_resp_content_type("application/json")
       |> put_status(:created)
@@ -40,7 +39,7 @@ defmodule JellyfishWeb.RoomController do
 
         conn
         |> put_resp_content_type("application/json")
-        |> render("show.json", room: room)
+        |> json(JsonUtils.get_json(room))
 
       {:error, :room_not_found} ->
         {:error, :not_found, "Room #{id} does not exist"}
