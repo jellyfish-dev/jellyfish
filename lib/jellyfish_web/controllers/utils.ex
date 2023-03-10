@@ -1,4 +1,4 @@
-defmodule JellyfishWeb.JsonUtils do
+defmodule JellyfishWeb.Controllers.Utils do
   @moduledoc false
   # Functions for converting structs to appropriate API responses
   alias Jellyfish.{Component, Peer, Room}
